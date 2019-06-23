@@ -21,7 +21,6 @@ export default {
           title: "首页",
           src: require("@/assets/navbar/home.webp"),
           ssrc: require("@/assets/navbar/home_tabs.webp")
-          // "http://t13img.yangkeduo.com/cart/2018-09-02/4149b41e8ade31e7487e12e372e13d69.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"
         },
         {
           name: "recommend",
@@ -44,8 +43,6 @@ export default {
           title: "聊天",
           src: require("@/assets/navbar/chat.webp"),
           ssrc: require("@/assets/navbar/chat_tab.webp")
-
-          // ssrc: require("@/assets/navbar/chat_tab.webp")
         },
 
         {
@@ -54,8 +51,6 @@ export default {
           title: "个人中心",
           src: require("@/assets/navbar/mine.webp"),
           ssrc: require("@/assets/navbar/mine_tab.webp")
-
-          // ssrc: require("@/assets/navbar/mine_tab.webp")
         }
       ]
     };

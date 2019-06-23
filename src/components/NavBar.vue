@@ -64,8 +64,8 @@ export default {
         height: auto;
       }
       .btn-font {
-        // margin-top: 0.2rem;
-        font-size: 0.6rem;
+        margin-top: 0.2rem;
+        font-size: 0.7rem;
       }
     }
   }

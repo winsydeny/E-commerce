@@ -73,6 +73,7 @@ export default {
   width: 100%;
   height: 3rem;
   line-height: 2rem;
+  opacity: 0.99;
   .tab-edge {
     width: 100%;
     height: 0.1rem;

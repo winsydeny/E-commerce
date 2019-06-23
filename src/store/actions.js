@@ -11,7 +11,4 @@ export default {
     }, code) {
         commit('addCode', code);
     },
-
-
-
 }
