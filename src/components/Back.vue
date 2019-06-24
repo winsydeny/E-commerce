@@ -1,5 +1,5 @@
 <template>
-  <div class="back">
+  <div class="back" @click="toback">
     <div class="to-top">
       <span>顶部</span>
     </div>
@@ -8,11 +8,10 @@
 <script>
 export default {
   name: "back",
-  props: {
-    // scroll: {
-    //   type: Object,
-    //   required: true
-    // }
+  methods: {
+    toback() {
+      this.$parent.backToTop();
+    }
   },
   mounted() {
     // console.log(this.scroll);
@@ -30,7 +29,7 @@ export default {
     border-radius: 50%;
     line-height: 2.5rem;
     font-size: 0.7rem;
-    background: #fafafac0;
+    background: white;
     text-align: center;
   }
 }

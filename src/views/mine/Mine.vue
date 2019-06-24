@@ -1,5 +1,5 @@
 <template>
-  <div class="mine" @scroll="calcScroll">
+  <div class="mine" @scroll="calcScroll" ref="mine_page">
     <section class="personal-section">
       <div class="personal-header">
         <div class="info">
@@ -139,6 +139,10 @@ export default {
       } else {
         this.dist = 0;
       }
+    },
+    backToTop() {
+      const win = this.$refs.mine_page;
+      win.scrollTo(0, 0);
     }
   },
   mounted() {
@@ -414,3 +418,4 @@ export default {
 
 
 
+  

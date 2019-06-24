@@ -1,5 +1,5 @@
   <template>
-  <div class="nav" style="height:8%">
+  <div class="nav" style="height:3rem">
     <div
       v-for="(item,index) in navbars"
       :key="item.id"
