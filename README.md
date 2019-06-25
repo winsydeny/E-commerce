@@ -1,29 +1,14 @@
-# shopping
+## E
 
-## Project setup
-```
-npm install
-```
+### 2019-6-25
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+- Add Chat[page]
+- Add goods_details[component]
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 2019-6-26
 
-### Run your tests
-```
-npm run test
-```
+### 2019-6-27
 
-### Lints and fixes files
-```
-npm run lint
-```
+### 2019-6-28
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 2019-6-29
