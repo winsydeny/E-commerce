@@ -5,6 +5,7 @@ import router from '@/router'
 
 //init css
 import '@/assets/css/init.css'
+import "@/assets/css/iconfont.css"
 Vue.config.productionTip = false;
 
 new Vue({

@@ -87,6 +87,12 @@ export default [{
     component: () => import("@/views/mine/secondFunc/Setting")
   },
   {
+    path: "/goods_detail/:goods_id",
+    name: 'goodsDetail',
+    component: () => import("@/views/goods/goodsDetail")
+
+  },
+  {
     path: "/",
     redirect: "/home"
   }
