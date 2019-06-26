@@ -74,18 +74,24 @@ export default [{
     path: "/mine",
     name: "mine",
     component: () => import("@/views/mine/Mine"),
-    children: []
+    children: [{
+        path: "/mine/setting",
+        name: "setting",
+        component: () => import("@/views/mine/secondFunc/Setting")
+      },
+      {
+        path: "/mine/address",
+        name: 'consignee',
+        component: () => import("@/views/mine/secondFunc/ConsigneeAddress")
+      }
+    ]
   },
   {
     path: "/login",
     name: "login",
     component: () => import("@/views/login/Login")
   },
-  {
-    path: "/mine/setting",
-    name: "setting",
-    component: () => import("@/views/mine/secondFunc/Setting")
-  },
+
   {
     path: "/goods_detail/:goods_id",
     name: 'goodsDetail',

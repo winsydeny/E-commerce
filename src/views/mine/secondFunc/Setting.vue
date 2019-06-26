@@ -2,7 +2,10 @@
   <div class="setting">
     <div class="funcs">
       <ul>
-        <li @click="signout">退出</li>
+        <li>支付设置</li>
+        <li>意见反馈</li>
+        <li>关于</li>
+        <li @click="signout" style="text-align:center;">退出登录</li>
       </ul>
     </div>
   </div>
@@ -24,11 +27,18 @@ export default {
 
 <style lang="scss" scoped>
 .setting {
+  height: 100%;
   width: 100%;
-  height: 100vh;
-  background: rgba(192, 191, 191, 0.288);
-  position: fixed;
-  z-index: 1000;
+  background: #f4f4f4;
+  position: absolute;
+  z-index: 3333;
+  top: 0;
+
+  // width: 100%;
+  // height: 100vh;
+  // background: rgba(192, 191, 191, 0.288);
+  // position: fixed;
+  // z-index: 1000;
   .funcs {
     width: 96%;
     margin: 0 auto;
