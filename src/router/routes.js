@@ -104,6 +104,11 @@ export default [{
 
   },
   {
+    path: '/shoppingcart',
+    name: 'shoppingcart',
+    component: () => import("@/views/shoppingcart/ShoppingCart")
+  },
+  {
     path: "/",
     redirect: "/home"
   }

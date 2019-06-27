@@ -1,22 +1,18 @@
 <template>
   <div class="goods">
     <div class="mask" v-if="isShow"></div>
-
     <div class="goods-content">
       <div class="goods-img">
-        <img
-          src="http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80"
-          alt
-        >
+        <img :src="goods_detail.img" alt>
       </div>
       <div class="goods-details">
         <div class="goods-price">
-          <span>29.8</span>
-          <del>￥79</del>
-          <span>已拼2606件</span>
+          <span>{{goods_detail.price.current}}</span>
+          <del>￥{{goods_detail.price.del}}</del>
+          <span>已拼{{goods_detail.price.already}}件</span>
         </div>
         <div class="goods-title">
-          <span>夏季网红ins爆款四件套仿棉床上用品床单被套学生宿舍床上4三件套</span>
+          <span>{{goods_detail.title}}</span>
           <span>退货包运费</span>
         </div>
         <div class="goods-services">
@@ -30,17 +26,21 @@
       </div>
       <div class="goods-groups">
         <div class="goods-groups-title">
-          <span>7人在拼单，可直接参与</span>
+          <span>{{goods_detail.p_group.number}}人在拼单，可直接参与</span>
           <span>
             查看更多
             <i class="iconfont">&#xe733;</i>
           </span>
         </div>
         <div class="goods-groups-container">
-          <div class="container-list" v-for="(item,index) in 2" :key="index">
+          <div
+            class="container-list"
+            v-for="(item,index) in goods_detail.p_group.list"
+            :key="index"
+          >
             <div class="container-left">
               <span class="avatar"></span>
-              <span>蜜儿</span>
+              <span>{{item.name}}</span>
             </div>
             <div class="container-right">
               <div class="order-info">
@@ -57,7 +57,7 @@
       <div id="goods-reviews-module">
         <div class="goods-reviews-title">
           <div>
-            <span>商品评价(4795)</span>
+            <span>商品评价({{goods_detail.comments.number}})</span>
             <span>
               查看更多
               <i class="iconfont">&#xe733;</i>
@@ -73,9 +73,9 @@
           <div class="goods-evaluation-item">
             <div class="title">
               <span class="avatar"></span>
-              <span>Stranger</span>
+              <span>{{goods_detail.comments.p_random_comment.name}}</span>
             </div>
-            <div class="content">质量很好，穿着也很舒服。很时尚，很社会，抓紧行动吧，亲们！</div>
+            <div class="content">{{goods_detail.comments.p_random_comment.content}}</div>
           </div>
         </div>
       </div>
@@ -121,7 +121,7 @@
           <p>颜色</p>
           <div class="list" @click="selector_color">
             <span
-              v-for="(type,index) in goodsColor"
+              v-for="(type,index) in goods_detail.detail.color"
               :key="index"
               :data-id="index"
               :class="Object.is(goodsInfo.sColor,index)?'selected':''"
@@ -134,7 +134,7 @@
           <p>尺码</p>
           <div class="list" @click="selector_size">
             <span
-              v-for="(type,index) in goodsSize"
+              v-for="(type,index) in goods_detail.detail.size"
               :key="index"
               :data-id="index"
               :class="Object.is(goodsInfo.sSize,index)?'selected':''"
@@ -174,9 +174,74 @@ export default {
       },
       goodsSize: ["60斤以内", "70-80斤"],
       goodsColor: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
+
+      // goods_detail: {
+      //   img:
+      //     "http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80",
+      //   price: {
+      //     current: 29.8,
+      //     del: 79,
+      //     already: 2606
+      //   },
+      //   title: "夏季网红ins爆款四件套仿棉床上用品床单被套学生宿舍床上4三件套",
+      //   service: {},
+      //   p_group: {
+      //     number: 3,
+      //     list: [{ name: "蜜儿" }, { name: "香蕉" }, { name: "苹果" }]
+      //   },
+      //   comments: {
+      //     number: 200,
+      //     p_random_comment: {
+      //       name: "Strange",
+      //       avatar: "",
+      //       content:
+      //         "质量很好，穿着也很舒服。很时尚，很社会，抓紧行动吧，亲们！"
+      //     }
+      //   },
+      //   detail: {
+      //     size: ["60斤以内", "70-80斤"],
+      //     color: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
+      //   }
+      // }
     };
   },
   methods: {
+    _initDetail() {
+      const { goods_id } = this.$route.params;
+      // axios => getGoodsInfomation
+
+      const goodsDetail = {
+        img:
+          "http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80",
+        price: {
+          current: 29.8,
+          del: 79,
+          already: 2606
+        },
+        title: "夏季网红ins爆款四件套仿棉床上用品床单被套学生宿舍床上4三件套",
+        service: {},
+        p_group: {
+          number: 3,
+          list: [{ name: "蜜儿" }, { name: "香蕉" }, { name: "苹果" }]
+        },
+        comments: {
+          number: 200,
+          p_random_comment: {
+            name: "Strange",
+            avatar: "",
+            content:
+              "质量很好，穿着也很舒服。很时尚，很社会，抓紧行动吧，亲们！"
+          }
+        },
+        detail: {
+          size: ["60斤以内", "70-80斤"],
+          color: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
+        }
+      };
+
+      this.goods_detail = goodsDetail;
+      console.log(this.goods_detail);
+    },
     Single() {
       this.userSelector = -20.5;
       this.isShow = true;
@@ -226,6 +291,9 @@ export default {
   },
   mounted() {
     this.selectorHeight = this.$refs.userSelector.clientHeight;
+  },
+  created() {
+    this._initDetail();
   }
 };
 </script>
