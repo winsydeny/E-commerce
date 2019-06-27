@@ -13,13 +13,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         username: null,
-        code: null
+        code: null,
+        receiver: null
     },
     actions,
     mutations,
     getters: {
         getUser(state) {
             return state.username;
+        },
+        getReceiver(state) {
+            return state.receiver;
         }
     }
 })

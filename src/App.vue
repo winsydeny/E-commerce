@@ -62,6 +62,13 @@ export default {
     if (localStorage.getItem("username")) {
       this.$store.dispatch("setUserName", localStorage.getItem("username"));
     }
+    if (localStorage.getItem("address")) {
+      this.$store.dispatch(
+        "setReceiver",
+        JSON.parse(localStorage.getItem("address"))
+      );
+      // console.log(JSON.parse(localStorage.getItem("address")));
+    }
   }
 };
 </script>

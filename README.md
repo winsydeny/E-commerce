@@ -13,11 +13,14 @@
 
 - 完成购买组件 === done
 
-- 收藏功能[logined]必须持久化存储 ===
+- 收藏功能[logined]必须持久化存储 === Not
 
 ### 2019-6-27
 
 ### 2019-6-28
+
+- 数据交互(API)
+- search[page]&recommend[page] fix bug
 
 ### 2019-6-29
 

@@ -7,5 +7,8 @@ export default {
     },
     addCode(state, code) {
         state.code = code;
+    },
+    addReceiver(state, receiver) {
+        state.receiver = receiver;
     }
 }

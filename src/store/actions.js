@@ -11,4 +11,9 @@ export default {
     }, code) {
         commit('addCode', code);
     },
+    setReceiver({
+        commit
+    }, address) {
+        commit('addReceiver', address);
+    }
 }

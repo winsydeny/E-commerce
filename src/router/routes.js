@@ -9,8 +9,8 @@ export default [{
       },
       {
         path: "/home/women_clothe",
-        name: "computer",
-        component: () => import("@/views/home/homeViews/Computer")
+        name: "women",
+        component: () => import("@/views/home/homeViews/Women")
       },
       {
         path: "/home/days",
@@ -81,8 +81,13 @@ export default [{
       },
       {
         path: "/mine/address",
-        name: 'consignee',
+        name: "consignee",
         component: () => import("@/views/mine/secondFunc/ConsigneeAddress")
+      },
+      {
+        path: "/mine/myorder",
+        name: "myorder",
+        component: () => import("@/views/mine/main/MyOrder")
       }
     ]
   },

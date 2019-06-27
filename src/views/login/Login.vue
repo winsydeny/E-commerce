@@ -59,6 +59,7 @@ export default {
       else {
         this.setUserName(this.phoneNumber);
         this.setUserCode(this.code);
+        //save in localstorage
         localStorage.setItem("username", this.phoneNumber);
         this.$router.replace({ name: "mine" });
       }

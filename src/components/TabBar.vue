@@ -1,6 +1,6 @@
 <template>
   <div class="tabbar">
-    <div class="tabbar-list">
+    <div class="tabbar-list" :style="`background:${bground}`">
       <ul ref="scroll">
         <li
           v-for="(item,index) in tablist"
@@ -19,10 +19,10 @@
 import animateScroll from "@/utils/AnimateScroll.js";
 export default {
   name: "tabbar",
-  data() {
-    return {
-      selectdId: 0,
-      tablist: [
+  props: {
+    tablist: {
+      type: Array,
+      default: () => [
         { title: "热门", path: "/home/popular" },
         { title: "女装", path: "/home/women_clothe" },
         { title: "百货", path: "/home/categroies" },
@@ -34,6 +34,18 @@ export default {
         { title: "家具", path: "/home/furniture" },
         { title: "电脑", path: "/home/computers" }
       ]
+    },
+    bground: {
+      type: String,
+      default: "#f4f4f4"
+    }
+  },
+  data() {
+    return {
+      selectdId: 0
+      // tablist: [
+
+      // ]
     };
   },
   methods: {
@@ -42,7 +54,7 @@ export default {
     selected(e) {
       let scroll = this.$refs.scroll;
       // 中心位置
-      console.log(e);
+      // console.log(e);
       let c_postion =
         window.document.body.offsetWidth / 2 - e.target.offsetWidth / 2;
       if (e.target.nodeName === "SPAN") {
@@ -93,7 +105,7 @@ export default {
 
       li {
         display: inline-block;
-        width: 2rem;
+        // width: 2rem;
         line-height: 3rem;
         margin: 0 0.67rem;
         padding: 0 0 0.86rem 0;

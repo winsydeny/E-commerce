@@ -29,7 +29,7 @@
         </div>
 
         <div class="my-orders">
-          <div class="order-title">
+          <div class="order-title" @click="go('myorder')">
             <span>我的订单</span>
             <span>查看全部></span>
           </div>
