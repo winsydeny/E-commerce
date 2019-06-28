@@ -66,7 +66,7 @@
             <span>优惠券</span>
           </li>
           <li>
-            <i class="iconfont">&#xe67b;</i>
+            <i class="iconfont" @click="go('collection')">&#xe67b;</i>
             <span>商品收藏</span>
           </li>
           <li>
@@ -185,7 +185,6 @@ export default {
   methods: {
     ...mapGetters(["getUser"]),
     go(routeName) {
-      // this.isShow = false;
       this.$router.push({ name: routeName });
     },
     calcScroll(e) {

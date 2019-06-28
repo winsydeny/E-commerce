@@ -20,13 +20,14 @@ export default {
     setCollection({
         commit
     }, collect) {
-        const {
-            c,
-            pid
-        } = collect;
-        if (c)
-            commit('addCollection', pid);
-        else commit('addCollection', null);
+        // const {
+        //     c,
+        //     pid
+        // } = collect;
+        // if (c)
+        //     commit('addCollection', pid);
+        // else commit('addCollection', -1);
+        commit('addCollection', collect)
     },
 
     setPayment({
@@ -38,5 +39,10 @@ export default {
         commit
     }, code) {
         commit('addPaycode', code);
+    },
+    setGoodslist({
+        commit
+    }, goodslist) {
+        commit('addGoodslist', goodslist);
     }
 }

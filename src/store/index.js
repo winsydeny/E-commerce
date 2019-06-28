@@ -14,8 +14,9 @@ export default new Vuex.Store({
     state: {
         username: null,
         code: null,
+        goodslist: null, //所有商品
         receiver: null, // 收件地址及联系人
-        collection: null,
+        collection: [],
         payment: null,
         paycode: '123456'
     },
@@ -38,6 +39,11 @@ export default new Vuex.Store({
             paycode
         }) {
             return paycode;
+        },
+        getGoodslist({
+            goodslist
+        }) {
+            return goodslist;
         }
     }
 })

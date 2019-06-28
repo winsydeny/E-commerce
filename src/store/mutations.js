@@ -12,12 +12,23 @@ export default {
         state.receiver = receiver;
     },
     addCollection(state, collect) {
-        state.collection = collect;
+        if (!collect.c) {
+            // state.collect.pop(pid);
+            let index = state.collection.indexOf(collect.pid);
+            if (index > -1) {
+                state.collection.splice(index, 1);
+            }
+        } else {
+            state.collection.push(collect.pid);
+        }
     },
     addPayment(state, payment) {
         state.payment = payment;
     },
     addPaycode(state, paycode) {
         state.paycode = paycode;
+    },
+    addGoodslist(state, goodslist) {
+        state.goodslist = goodslist;
     }
 }

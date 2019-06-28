@@ -88,6 +88,11 @@ export default [{
         path: "/mine/myorder",
         name: "myorder",
         component: () => import("@/views/mine/main/MyOrder")
+      },
+      {
+        path: "/mine/collection",
+        name: "collection",
+        component: () => import("@/views/mine/secondFunc/Collection")
       }
     ]
   },

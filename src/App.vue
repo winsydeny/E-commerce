@@ -8,6 +8,8 @@
 
 <script>
 import store from "@/store/index.js";
+
+import { getGoodsPid, getGoodsList } from "@/api/index.js";
 // import login from "@/views/login/Login";
 import navbar from "@/components/NavBar.vue";
 export default {
@@ -69,6 +71,16 @@ export default {
       );
       // console.log(JSON.parse(localStorage.getItem("address")));
     }
+    // console.log(getGoodsPid);
+    getGoodsPid("goods?pid=62533")
+      .then(data => {
+        console.log(data);
+      })
+      .catch(e => console.log(e));
+
+    getGoodsList().then(data => {
+      console.log(data);
+    });
   }
 };
 </script>

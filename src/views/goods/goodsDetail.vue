@@ -116,10 +116,6 @@
               <span class="choose-type">{{goodsInfo.icolor}}</span>
               <span class="choose-type">{{goodsInfo.isize}}</span>
             </div>
-            <!-- <div class="choose-type">
-              <p>{{goodsInfo.icolor}}</p>
-              <p>{{goodsInfo.isize}}</p>
-            </div>-->
           </div>
           <span class="iconfont close" @click="closeUserSelector">&#xe60f;</span>
         </div>
@@ -163,7 +159,7 @@
   </div>
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "goodsDetail",
   data() {
@@ -188,6 +184,7 @@ export default {
   },
   methods: {
     ...mapActions(["setCollection", "setPayment"]),
+    ...mapGetters(["getCollection"]),
     _initDetail() {
       const { goods_id } = this.$route.params;
       // axios => getGoodsInfomation
@@ -223,6 +220,16 @@ export default {
       };
 
       this.goods_detail = goodsDetail;
+      // 收藏
+      // console.log(this.getCollection());
+      if (this.getCollection() === null) {
+      } else {
+        Array.from(this.getCollection()).forEach(el => {
+          // console.log(el, goods_id);
+          if (Object.is(el, Math.floor(goods_id))) this.collection = true;
+        });
+      }
+
       // console.log(this.goods_detail);
     },
     Single() {
@@ -270,10 +277,10 @@ export default {
       this.collection = !this.collection;
       if (this.collection) {
         this.collectCharacter = "已收藏";
-        this.setCollection({ c: true, pid: 62566 });
+        this.setCollection({ c: true, pid: this.goodsInfo.pid });
       } else {
         this.collectCharacter = "收藏";
-        this.setCollection({ c: false });
+        this.setCollection({ c: false, pid: this.goodsInfo.pid });
       }
     }
   },
