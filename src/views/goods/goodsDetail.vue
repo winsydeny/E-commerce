@@ -110,8 +110,16 @@
             src="//t00img.yangkeduo.com/openapi/images/2018-07-29/82a4c15e8829742bbed262765b0e7340.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/300/q/70/format/webp"
           >
           <div class="price-selected">
-            <span>￥39.9</span>
-            <p>已选:{{goodsInfo.icolor}}{{goodsInfo.isize}}</p>
+            <span>￥{{goods_detail.price.current}}</span>
+            <div class="choose">
+              <span>已选:</span>
+              <span class="choose-type">{{goodsInfo.icolor}}</span>
+              <span class="choose-type">{{goodsInfo.isize}}</span>
+            </div>
+            <!-- <div class="choose-type">
+              <p>{{goodsInfo.icolor}}</p>
+              <p>{{goodsInfo.isize}}</p>
+            </div>-->
           </div>
           <span class="iconfont close" @click="closeUserSelector">&#xe60f;</span>
         </div>
@@ -155,6 +163,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "goodsDetail",
   data() {
@@ -170,46 +179,20 @@ export default {
         isize: "",
         sColor: null,
         sSize: null,
-        sNumber: 1
-      },
-      goodsSize: ["60斤以内", "70-80斤"],
-      goodsColor: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
-
-      // goods_detail: {
-      //   img:
-      //     "http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80",
-      //   price: {
-      //     current: 29.8,
-      //     del: 79,
-      //     already: 2606
-      //   },
-      //   title: "夏季网红ins爆款四件套仿棉床上用品床单被套学生宿舍床上4三件套",
-      //   service: {},
-      //   p_group: {
-      //     number: 3,
-      //     list: [{ name: "蜜儿" }, { name: "香蕉" }, { name: "苹果" }]
-      //   },
-      //   comments: {
-      //     number: 200,
-      //     p_random_comment: {
-      //       name: "Strange",
-      //       avatar: "",
-      //       content:
-      //         "质量很好，穿着也很舒服。很时尚，很社会，抓紧行动吧，亲们！"
-      //     }
-      //   },
-      //   detail: {
-      //     size: ["60斤以内", "70-80斤"],
-      //     color: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
-      //   }
-      // }
+        sNumber: 1,
+        pid: null
+      }
+      // goodsSize: ["60斤以内", "70-80斤"],
+      // goodsColor: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
     };
   },
   methods: {
+    ...mapActions(["setCollection", "setPayment"]),
     _initDetail() {
       const { goods_id } = this.$route.params;
       // axios => getGoodsInfomation
-
+      // console.log(this.$route);
+      this.goodsInfo.pid = Math.floor(this.$route.params.goods_id);
       const goodsDetail = {
         img:
           "http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80",
@@ -240,7 +223,7 @@ export default {
       };
 
       this.goods_detail = goodsDetail;
-      console.log(this.goods_detail);
+      // console.log(this.goods_detail);
     },
     Single() {
       this.userSelector = -20.5;
@@ -277,15 +260,20 @@ export default {
       } else if (this.goodsInfo.isize === "") {
         alert("请选择尺码");
       } else {
-        console.log(this.goodsInfo);
+        this.setPayment(this.goodsInfo);
+        // 跳转到支付界面
+        this.$router.push({ name: "shoppingcart" });
+        // console.log(this.goodsInfo);
       }
     },
     collect() {
       this.collection = !this.collection;
       if (this.collection) {
         this.collectCharacter = "已收藏";
+        this.setCollection({ c: true, pid: 62566 });
       } else {
         this.collectCharacter = "收藏";
+        this.setCollection({ c: false });
       }
     }
   },
@@ -659,6 +647,41 @@ export default {
         }
         .price-selected {
           margin-left: 6.5rem;
+          height: 100%;
+          span {
+            display: block;
+            padding-top: 0.6rem;
+            font-size: 1.1rem;
+            color: #e02e24;
+          }
+          .choose {
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding-top: 0;
+            position: relative;
+            left: 0.2rem;
+            span {
+              display: inline-block;
+
+              font-size: 0.8rem;
+              color: #151516;
+            }
+            p {
+              // padding-top: 0.6rem;
+              // padding-left: 0.2rem;
+              // font-size: 0.8rem;
+              // display: inline-block;
+              // &:nth-child(3) {
+              //   padding-left: 1rem;
+              // }
+            }
+          }
+
+          .choose-type {
+            // display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 500;
+          }
         }
         .close {
           position: absolute;

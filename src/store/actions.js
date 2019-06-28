@@ -15,5 +15,28 @@ export default {
         commit
     }, address) {
         commit('addReceiver', address);
+    },
+
+    setCollection({
+        commit
+    }, collect) {
+        const {
+            c,
+            pid
+        } = collect;
+        if (c)
+            commit('addCollection', pid);
+        else commit('addCollection', null);
+    },
+
+    setPayment({
+        commit
+    }, payment) {
+        commit('addPayment', payment);
+    },
+    setPaycode({
+        commit
+    }, code) {
+        commit('addPaycode', code);
     }
 }

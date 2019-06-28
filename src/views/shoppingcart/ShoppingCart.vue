@@ -1,5 +1,8 @@
 <template>
   <div class="cart">
+    <div class="mask" v-if="isShow" @click="isShow = false"></div>
+    <ipay v-if="isShow" class="ipay"></ipay>
+
     <div class="address" @click="$router.push({name:'consignee'})">
       <div class="address-info">
         <i class="iconfont">&#xe64e;</i>
@@ -66,13 +69,18 @@
         <span>￥{{finalAmount}}</span>
         <span>免运费</span>
       </div>
-      <div>立即支付</div>
+      <div @click="isShow = true">立即支付</div>
     </div>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import ipay from "@/components/Pay";
 export default {
   name: "shoppingcart",
+  components: {
+    ipay
+  },
   computed: {
     finalAmount() {
       return this.goodsNumber * this.order_goods.specfic.price;
@@ -80,6 +88,7 @@ export default {
   },
   data() {
     return {
+      isShow: false,
       notSub: true,
       paymentType: "wechat",
       goodsNumber: 1,
@@ -96,6 +105,16 @@ export default {
     };
   },
   methods: {
+    ...mapGetters(["getPayment"]),
+    getOrder() {
+      const { icolor, isize, pid, sNumber } = this.getPayment();
+      this.order_goods.specfic = {
+        color: icolor,
+        size: isize,
+        price: 25
+      };
+      this.goodsNumber = sNumber;
+    },
     add() {
       this.goodsNumber++;
       this.notSub = false;
@@ -111,10 +130,24 @@ export default {
     },
     pay(type) {
       this.paymentType = type;
+    },
+    close() {
+      console.log("11");
+      this.isShow = true;
+    }
+  },
+  watch: {
+    goodsNumber: function(val) {
+      // console.log(this);
+      if (val === 1) {
+      } else {
+        this.notSub = false;
+      }
     }
   },
   created() {
     this.address = this.$store.getters.getReceiver;
+    this.getOrder();
     console.log(this.address);
   }
 };
@@ -127,6 +160,19 @@ export default {
   position: absolute;
   z-index: 3333;
   top: 0;
+  .ipay {
+    position: absolute;
+    bottom: 0;
+    z-index: 3333;
+  }
+  .mask {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2221;
+  }
+
   .address {
     &:active {
       background: rgba(172, 172, 172, 0.116);

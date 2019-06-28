@@ -12,7 +12,7 @@ const router = new VueRouter({
 // no finished when login from chat or mine
 router.beforeEach(function (to, from, next) {
   // console.log(from, to);
-  if (to.path === "/chat" || to.path === "/mine") {
+  if (to.path === "/chat" || to.path === "/mine" || to.path === "/shoppingcart") {
     if (localStorage.getItem('username')) {
       next();
     } else {

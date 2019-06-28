@@ -14,7 +14,10 @@ export default new Vuex.Store({
     state: {
         username: null,
         code: null,
-        receiver: null
+        receiver: null, // 收件地址及联系人
+        collection: null,
+        payment: null,
+        paycode: '123456'
     },
     actions,
     mutations,
@@ -24,6 +27,17 @@ export default new Vuex.Store({
         },
         getReceiver(state) {
             return state.receiver;
+        },
+        getCollection(state) {
+            return state.collection;
+        },
+        getPayment(state) {
+            return state.payment;
+        },
+        getPaycode({
+            paycode
+        }) {
+            return paycode;
         }
     }
 })

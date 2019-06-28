@@ -10,5 +10,14 @@ export default {
     },
     addReceiver(state, receiver) {
         state.receiver = receiver;
+    },
+    addCollection(state, collect) {
+        state.collection = collect;
+    },
+    addPayment(state, payment) {
+        state.payment = payment;
+    },
+    addPaycode(state, paycode) {
+        state.paycode = paycode;
     }
 }
