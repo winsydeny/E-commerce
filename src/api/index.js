@@ -8,8 +8,18 @@ const getGoodsList = () => {
   return instance.get("goods?pid=00000");
 };
 const getGoodsPid = (pid) => {
-  return instance.get(pid);
+  return instance.get(`goods?pid=${pid}`);
   // return instance;
 };
-
-export { getGoodsList, getGoodsPid };
+const postOrder = (data) => {
+  return instance.post('/order', data);
+}
+const getOrders = (username) => {
+  return instance.get(`/order/username?u=${username}`);
+}
+export {
+  getGoodsList,
+  getGoodsPid,
+  postOrder,
+  getOrders
+};

@@ -2,7 +2,7 @@
   <div class="my-order">
     <div class="search-order">
       <form>
-        <input type="text" placeholder="搜索" style="text-align:center;">
+        <input type="text" placeholder="搜索" style="text-align:center;" />
       </form>
     </div>
     <div style="height:4rem;">
@@ -14,11 +14,12 @@
     </div>
     <div class="info">您还没有订单</div>
 
-    <router-view/>
+    <router-view />
   </div>
 </template>
 <script>
 import tabBar from "@/components/TabBar";
+import { getOrders } from "@/api/index";
 export default {
   name: "myorder",
   data() {
@@ -35,6 +36,16 @@ export default {
   },
   components: {
     tabBar
+  },
+  methods: {
+    async _initData() {
+      // console.log(this.$store.getters.getUser);
+      const orders = await getOrders(this.$store.getters.getUser);
+      console.log(orders);
+    }
+  },
+  created() {
+    this._initData();
   }
 };
 </script>

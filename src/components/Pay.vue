@@ -9,7 +9,7 @@
         readonly="true"
         v-for="(item,index) in 6"
         :key="index"
-      >
+      />
     </div>
 
     <div class="less">
@@ -24,8 +24,14 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { postOrder } from "@/api/index.js";
 export default {
   name: "pay",
+  props: {
+    order: {
+      type: Object
+    }
+  },
   data() {
     return {
       codelenght: 0,
@@ -58,8 +64,28 @@ export default {
         setTimeout(() => {
           console.log(this.code);
           if (Object.is(this.code, this.getPaycode())) {
-            alert("支付成功");
-            this.$router.replace({ name: "mine" });
+            // submit order to 119.23.252.65/api/order;
+
+            const { img, specfic, username, title, pid } = this.order;
+            const endorder = {
+              img: img,
+              username: username,
+              title: title,
+              size: specfic.size,
+              color: specfic.color,
+              price: specfic.price,
+              pid: pid
+            };
+
+            postOrder(endorder)
+              .then(res => {
+                console.log("success");
+                alert("支付成功");
+                this.$router.replace({ name: "mine" });
+              })
+              .catch(e => {
+                console.log("failed");
+              });
           } else {
             alert("支付密码错误");
             let codeInput = Array.from(this.$refs.code);

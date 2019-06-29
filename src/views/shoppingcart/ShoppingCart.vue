@@ -1,7 +1,7 @@
 <template>
   <div class="cart">
     <div class="mask" v-if="isShow" @click="isShow = false"></div>
-    <ipay v-if="isShow" class="ipay"></ipay>
+    <ipay v-if="isShow" class="ipay" :order="order_goods"></ipay>
 
     <div class="address" @click="$router.push({name:'consignee'})">
       <div class="address-info">
@@ -23,13 +23,13 @@
         <img
           src="http://omsproductionimg.yangkeduo.com/images/2018-05-09/bdcc0337772d22eb21ba70aaf46cf85e.png@80w_1l_80Q"
           alt
-        >
+        />
         <!-- 蒙福科技 -->
         <span>蒙福科技</span>
       </div>
       <div class="or-goods-info">
         <div class="or-goods-info-mask">
-          <img :src="order_goods.img" alt>
+          <img :src="order_goods.img" alt />
           <div class="or-goods-info-detail">
             <span>{{order_goods.title}}</span>
             <div class="or-goods-spec">
@@ -105,13 +105,25 @@ export default {
     };
   },
   methods: {
-    ...mapGetters(["getPayment"]),
+    ...mapGetters(["getPayment", "getUser"]),
     getOrder() {
-      const { icolor, isize, pid, sNumber } = this.getPayment();
+      const {
+        icolor,
+        isize,
+        pid,
+        sNumber,
+        price,
+        img,
+        title
+      } = this.getPayment();
+      this.order_goods.img = img;
+      this.order_goods.title = title;
+      this.order_goods.username = this.getUser();
+      this.order_goods.pid = pid;
       this.order_goods.specfic = {
         color: icolor,
         size: isize,
-        price: 25
+        price: price
       };
       this.goodsNumber = sNumber;
     },

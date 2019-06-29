@@ -160,6 +160,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { getGoodsPid } from "@/api/index.js";
 export default {
   name: "goodsDetail",
   data() {
@@ -173,11 +174,13 @@ export default {
       goodsInfo: {
         icolor: "",
         isize: "",
+        price: null,
         sColor: null,
         sSize: null,
         sNumber: 1,
         pid: null
-      }
+      },
+      goods_detail: {}
       // goodsSize: ["60斤以内", "70-80斤"],
       // goodsColor: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
     };
@@ -185,41 +188,48 @@ export default {
   methods: {
     ...mapActions(["setCollection", "setPayment"]),
     ...mapGetters(["getCollection"]),
-    _initDetail() {
+    async _initDetail() {
       const { goods_id } = this.$route.params;
       // axios => getGoodsInfomation
-      // console.log(this.$route);
+      // console.log(goods_id);
       this.goodsInfo.pid = Math.floor(this.$route.params.goods_id);
-      const goodsDetail = {
-        img:
-          "http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80",
-        price: {
-          current: 29.8,
-          del: 79,
-          already: 2606
-        },
-        title: "夏季网红ins爆款四件套仿棉床上用品床单被套学生宿舍床上4三件套",
-        service: {},
-        p_group: {
-          number: 3,
-          list: [{ name: "蜜儿" }, { name: "香蕉" }, { name: "苹果" }]
-        },
-        comments: {
-          number: 200,
-          p_random_comment: {
-            name: "Strange",
-            avatar: "",
-            content:
-              "质量很好，穿着也很舒服。很时尚，很社会，抓紧行动吧，亲们！"
-          }
-        },
-        detail: {
-          size: ["60斤以内", "70-80斤"],
-          color: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
-        }
-      };
 
+      // const goodsDetail = {
+      //   img:
+      //     "http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80",
+      //   price: {
+      //     current: 29.8,
+      //     del: 79,
+      //     already: 2606
+      //   },
+      //   title: "夏季网红ins爆款四件套仿棉床上用品床单被套学生宿舍床上4三件套",
+      //   service: {},
+      //   p_group: {
+      //     number: 3,
+      //     list: [{ name: "蜜儿" }, { name: "香蕉" }, { name: "苹果" }]
+      //   },
+      //   comments: {
+      //     number: 200,
+      //     p_random_comment: {
+      //       name: "Strange",
+      //       avatar: "",
+      //       content:
+      //         "质量很好，穿着也很舒服。很时尚，很社会，抓紧行动吧，亲们！"
+      //     }
+      //   },
+      //   detail: {
+      //     size: ["60斤以内", "70-80斤"],
+      //     color: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
+      //   }
+      // };
+      const dd = await getGoodsPid(goods_id);
+      const goodsDetail = dd.data[0].detail_goods;
       this.goods_detail = goodsDetail;
+
+      // const dd = await getGoodsPid(goods_id);
+      console.log(dd.data[0].detail_goods);
+      // this.goods_detail = dd.data[0].detail_goods;
+
       // 收藏
       // console.log(this.getCollection());
       if (this.getCollection() === null) {
@@ -229,8 +239,6 @@ export default {
           if (Object.is(el, Math.floor(goods_id))) this.collection = true;
         });
       }
-
-      // console.log(this.goods_detail);
     },
     Single() {
       this.userSelector = -20.5;
@@ -267,6 +275,9 @@ export default {
       } else if (this.goodsInfo.isize === "") {
         alert("请选择尺码");
       } else {
+        this.goodsInfo.price = this.goods_detail.price.current;
+        this.goodsInfo.title = this.goods_detail.title;
+        this.goodsInfo.img = this.goods_detail.img;
         this.setPayment(this.goodsInfo);
         // 跳转到支付界面
         this.$router.push({ name: "shoppingcart" });
@@ -285,7 +296,7 @@ export default {
     }
   },
   mounted() {
-    this.selectorHeight = this.$refs.userSelector.clientHeight;
+    // this.selectorHeight = this.$refs.userSelector.clientHeight;
   },
   created() {
     this._initDetail();

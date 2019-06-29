@@ -15,55 +15,53 @@
             <span>￥</span>
             <span>{{item.price}}</span>
           </div>
-          <div class="numbers">{{item.info}}</div>
+          <div class="numbers">已拼{{item.info}}万件</div>
         </div>
       </div>
-
-      <!-- <div class="goods right">
-        <img
-          src="http://t00img.yangkeduo.com/goods/images/2019-05-13/dfa6fe6eefb86f3778d1c7826ed84fbd.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"
-          alt
-        >
-        <div class="goods-info">
-          <p>【匹族】中国风套装男夏季纯棉短袖唐装刺绣男士休闲汉服大码T恤</p>
-          <p>急速退款</p>
-          <div class="prices">
-            <span>￥</span>
-            <span>12.9</span>
-          </div>
-          <div class="numbers">已拼2.5万件</div>
-        </div>
-      </div>-->
     </div>
   </div>
 </template>
 
 <script>
+import { getGoodsPid, getGoodsList } from "@/api/index.js";
+// import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
+
 export default {
   name: "recommend",
   data() {
     return {
-      goodsList: [
-        {
-          img:
-            "http://t00img.yangkeduo.com/goods/images/2019-03-12/8f1c0a8449b35616b0d144957f0a9966.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp",
-          title: "无线蓝牙耳机迷你双耳入耳式 支持所有手机通用苹果oppo华为vivo",
-          service: "急速退款",
-          price: "12.9",
-          info: "已拼2.5万件",
-          goods_id: 65212
-        },
-        {
-          img:
-            "http://t00img.yangkeduo.com/goods/images/2019-05-13/dfa6fe6eefb86f3778d1c7826ed84fbd.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp",
-          title: "【匹族】中国风套装男夏季纯棉短袖唐装刺绣男士休闲汉服大码T恤",
-          service: "急速退款",
-          price: "33.9",
-          info: "已拼25万件",
-          goods_id: 65213
-        }
-      ]
+      goodsList: []
     };
+  },
+  methods: {
+    ...mapActions(["setGoodslist"]),
+    async _initData() {
+      const list = await getGoodsList();
+      // format data show in recommend
+      this.formatData(list.data);
+
+      // const { data } = await getGoodsList();
+      // this.setGoodslist(list); // vuex goodslist
+    },
+    formatData(data) {
+      data.forEach(({ detail_goods, pid }) => {
+        const { img, title, price } = detail_goods;
+        console.log(price);
+        const list = {
+          img: img,
+          title: title,
+          price: price.del,
+          service: "急速退款",
+          info: price.already,
+          goods_id: pid
+        };
+        this.goodsList.push(list);
+      });
+    }
+  },
+  created() {
+    this._initData();
   }
 };
 </script>
@@ -138,6 +136,7 @@ export default {
         text-indent: 0.6rem;
         font-size: 0.8rem;
         text-align: left;
+        float: right;
       }
     }
     .goods-right {

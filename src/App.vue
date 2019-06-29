@@ -10,6 +10,7 @@
 import store from "@/store/index.js";
 
 import { getGoodsPid, getGoodsList } from "@/api/index.js";
+import { mapActions } from "vuex";
 // import login from "@/views/login/Login";
 import navbar from "@/components/NavBar.vue";
 export default {
@@ -60,27 +61,27 @@ export default {
   components: {
     navbar
   },
-  mounted() {
-    if (localStorage.getItem("username")) {
-      this.$store.dispatch("setUserName", localStorage.getItem("username"));
-    }
-    if (localStorage.getItem("address")) {
-      this.$store.dispatch(
-        "setReceiver",
-        JSON.parse(localStorage.getItem("address"))
-      );
-      // console.log(JSON.parse(localStorage.getItem("address")));
-    }
-    // console.log(getGoodsPid);
-    getGoodsPid("goods?pid=62533")
-      .then(data => {
-        console.log(data);
-      })
-      .catch(e => console.log(e));
+  methods: {
+    ...mapActions(["setGoodslist"]),
+    async _initData() {
+      if (localStorage.getItem("username")) {
+        this.$store.dispatch("setUserName", localStorage.getItem("username"));
+      }
+      if (localStorage.getItem("address")) {
+        this.$store.dispatch(
+          "setReceiver",
+          JSON.parse(localStorage.getItem("address"))
+        );
+      }
 
-    getGoodsList().then(data => {
-      console.log(data);
-    });
+      // const { data } = await getGoodsList();
+      // this.setGoodslist(data); // vuex goodslist
+      // console.log(data);
+    }
+  },
+  mounted() {
+    this._initData();
+    // console.log(this.$store);
   }
 };
 </script>
@@ -93,10 +94,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   background: #f4f4f4;
   color: #2c3e50;
-
   &::-webkit-scrollbarf {
     display: none;
   }
-  // margin-top: 60px;
 }
 </style>
