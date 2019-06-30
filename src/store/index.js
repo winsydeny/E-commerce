@@ -18,7 +18,8 @@ export default new Vuex.Store({
         receiver: null, // 收件地址及联系人
         collection: [],
         payment: null,
-        paycode: '123456'
+        paycode: '123456',
+        order: [] //订单
     },
     actions,
     mutations,

@@ -8,7 +8,7 @@
               <img
                 src="http://pinduoduoimg.yangkeduo.com/avatar/default/1.png@750w_1l_50Q.webp"
                 alt
-              >
+              />
             </div>
             <div class="username">
               <p>{{user|formateUser}}</p>
@@ -29,29 +29,29 @@
         </div>
 
         <div class="my-orders">
-          <div class="order-title" @click="go('myorder')">
+          <div class="order-title" @click="orderDetail(0)">
             <span>我的订单</span>
             <span>查看全部></span>
           </div>
           <div class="order-list">
             <ul class="func-list">
-              <li>
+              <li @click="orderDetail(1)">
                 <i class="iconfont">&#xe600;</i>
                 <span>待付款</span>
               </li>
-              <li>
+              <li @click="orderDetail(2)">
                 <i class="iconfont">&#xe661;</i>
                 <span>待分享</span>
               </li>
-              <li>
+              <li @click="orderDetail(3)">
                 <i class="iconfont">&#xe708;</i>
                 <span>待发货</span>
               </li>
-              <li>
+              <li @click="orderDetail(4)">
                 <i class="iconfont">&#xe622;</i>
                 <span>待收货</span>
               </li>
-              <li>
+              <li @click="orderDetail(5)">
                 <i class="iconfont">&#xe63a;</i>
                 <span>待评价</span>
               </li>
@@ -125,7 +125,7 @@
               <img
                 src="http://t00img.yangkeduo.com/goods/images/2019-03-12/8f1c0a8449b35616b0d144957f0a9966.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"
                 alt
-              >
+              />
               <div class="goods-info">
                 <p>无线蓝牙耳机迷你双耳入耳式 支持所有手机通用苹果oppo华为vivo</p>
                 <p>急速退款</p>
@@ -140,7 +140,7 @@
               <img
                 src="http://t00img.yangkeduo.com/goods/images/2019-05-13/dfa6fe6eefb86f3778d1c7826ed84fbd.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"
                 alt
-              >
+              />
               <div class="goods-info">
                 <p>【匹族】中国风套装男夏季纯棉短袖唐装刺绣男士休闲汉服大码T恤</p>
                 <p>急速退款</p>
@@ -199,6 +199,9 @@ export default {
     backToTop() {
       const win = this.$refs.mine_page;
       win.scrollTo(0, 0);
+    },
+    orderDetail(tagId) {
+      this.$router.push({ name: "myorder", params: { tag: tagId } });
     }
   },
   mounted() {

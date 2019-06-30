@@ -39,12 +39,15 @@ export default {
       type: String,
       default: "#f4f4f4"
     }
+    // selectdId: {
+    // type: [Number, String],
+    // default: 0
+    // }
   },
   data() {
     return {
       selectdId: 0
       // tablist: [
-
       // ]
     };
   },
@@ -64,15 +67,16 @@ export default {
         const distance = e.clientX - e.offsetX - c_postion;
         //
         animateScroll(scroll, distance);
+
         this.selectdId = id;
       }
 
       // const route_path = e.target.getAttribute("BAse");
       this.navigateTo(e.target.getAttribute("route_path"));
-      console.log(e);
+      // console.log(e);
     },
     navigateTo(path) {
-      console.log();
+      // console.log();
       this.$router.push({ path });
     }
   }

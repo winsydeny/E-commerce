@@ -87,7 +87,12 @@ export default [{
       {
         path: "/mine/myorder",
         name: "myorder",
-        component: () => import("@/views/mine/main/MyOrder")
+        component: () => import("@/views/mine/main/MyOrder"),
+        // children: [{
+        //   path: "/mine/myorder/:order_list",
+        //   name: 'myorder_list',
+        //   component: () => import("@/views/mine/main/MyOrderList")
+        // }]
       },
       {
         path: "/mine/collection",
