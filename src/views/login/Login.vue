@@ -8,11 +8,30 @@
     </div>
     <div class="login-pages" :style="'top:'+distance+'%'">
       <form>
-        <label for></label>
-        <input type="text" v-model="phoneNumber" placeholder="手机号码" id="phone">
+        <!-- <label for></label> -->
+        <div style="display: flex;justify-content: center;align-items: center;">
+          <i class="iconfont" style="font-size:2.2rem;">&#xe610;</i>
+          <input
+            type="text"
+            v-model="phoneNumber"
+            placeholder="手机号码"
+            id="phone"
+            style="padding-left: 1.2rem;"
+          />
+        </div>
+        <!-- <i class="iconfont" style>&#xe610;</i> -->
         <div class="line"></div>
-        <input type="text" v-model="code" placeholder="验证码" id="code">
-        <span :id="isvalid?'get-code':''" @click="sendCode">发送验证码</span>
+        <div style="display: flex;justify-content: center;align-items: center;">
+          <i class="iconfont" style="font-size:1.5rem;">&#xe666;</i>
+          <input
+            type="text"
+            v-model="code"
+            placeholder="验证码"
+            id="code"
+            style="padding-left: 1.2rem;width: 47.8%;"
+          />
+          <span :id="isvalid?'get-code':''" @click="sendCode">发送验证码</span>
+        </div>
       </form>
       <div class="operate">
         <button @click="agreeLogin">同意协议并登录</button>
@@ -157,7 +176,7 @@ export default {
         outline: none;
         font-size: 1rem;
         // border-color: orangered;
-        padding: 0.9rem 2.9rem;
+        padding: 0.9rem 2rem;
       }
       #code {
         width: 45%;

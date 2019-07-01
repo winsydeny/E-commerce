@@ -31,6 +31,10 @@ export default new Vuex.Store({
             return state.receiver;
         },
         getCollection(state) {
+            // if (state.collection.lenght === 0) {
+            //     console.log("11")
+            //     return JSON.parse(localStorage.getItem("collection"));
+            // }
             return state.collection;
         },
         getPayment(state) {

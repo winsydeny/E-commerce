@@ -20,14 +20,7 @@ export default {
     setCollection({
         commit
     }, collect) {
-        // const {
-        //     c,
-        //     pid
-        // } = collect;
-        // if (c)
-        //     commit('addCollection', pid);
-        // else commit('addCollection', -1);
-        commit('addCollection', collect)
+        commit('addCollection', collect);
     },
 
     setPayment({

@@ -7,7 +7,7 @@
         :key="index"
         @click="$router.push(`/goods_detail/${item.goods_id}`)"
       >
-        <img :src="item.img" alt>
+        <img :src="item.img" alt />
         <div class="goods-info">
           <p>{{item.title}}</p>
           <p>{{item.service}}</p>
@@ -26,7 +26,7 @@
 import { getGoodsPid, getGoodsList } from "@/api/index.js";
 // import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
-
+import { Loading } from "element-ui";
 export default {
   name: "recommend",
   data() {
@@ -37,12 +37,14 @@ export default {
   methods: {
     ...mapActions(["setGoodslist"]),
     async _initData() {
+      let loadingInstance = Loading.service({ fullscreen: true });
       const list = await getGoodsList();
       // format data show in recommend
       this.formatData(list.data);
-
-      // const { data } = await getGoodsList();
-      // this.setGoodslist(list); // vuex goodslist
+      this.$nextTick(() => {
+        // 以服务的方式调用的 Loading 需要异步关闭
+        loadingInstance.close();
+      });
     },
     formatData(data) {
       data.forEach(({ detail_goods, pid }) => {
@@ -62,6 +64,7 @@ export default {
   },
   created() {
     this._initData();
+    // console.log(Loading);
   }
 };
 </script>

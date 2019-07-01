@@ -3,7 +3,8 @@
     <div class="mask" v-if="isShow"></div>
     <div class="goods-content">
       <div class="goods-img">
-        <img :src="goods_detail.img" alt>
+        <i class="iconfont back-route" @click="$router.go(-1);">&#xe642;</i>
+        <img :src="goods_detail.img" alt />
       </div>
       <div class="goods-details">
         <div class="goods-price">
@@ -95,20 +96,18 @@
       </div>
 
       <div class="buy-single" @click="Single">
-        <span>￥30.8</span>
+        <span>￥{{goods_detail.price.current}}</span>
         <span>单独购买</span>
       </div>
       <div class="buy-share" @click="Single">
-        <span>￥29.8</span>
+        <span>￥{{goods_detail.price.current}}</span>
         <span>发起拼单</span>
       </div>
     </div>
     <div class="user-selector-main" :style="`top:${userSelector}rem`" ref="userSelector">
       <div class="user-selector-head">
         <div class="item">
-          <img
-            src="//t00img.yangkeduo.com/openapi/images/2018-07-29/82a4c15e8829742bbed262765b0e7340.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/300/q/70/format/webp"
-          >
+          <img :src="goods_detail.img" />
           <div class="price-selected">
             <span>￥{{goods_detail.price.current}}</span>
             <div class="choose">
@@ -161,6 +160,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import { getGoodsPid } from "@/api/index.js";
+import { Loading } from "element-ui";
 export default {
   name: "goodsDetail",
   data() {
@@ -180,7 +180,34 @@ export default {
         sNumber: 1,
         pid: null
       },
-      goods_detail: {}
+      goods_detail: {
+        img:
+          "http://t00img.yangkeduo.com/goods/images/2019-06-12/e90f76e4-7563-46b2-a9b8-6c17ab69f583.jpg?imageMogr2/strip%7CimageView2/2/w/1300/q/80",
+        price: {
+          current: 29.8,
+          del: 79,
+          already: 2606
+        },
+        title: "夏季网红ins爆款四件套仿棉床上用品床单被套学生宿舍床上4三件套",
+        service: {},
+        p_group: {
+          number: 3,
+          list: [{ name: "蜜儿" }, { name: "香蕉" }, { name: "苹果" }]
+        },
+        comments: {
+          number: 200,
+          p_random_comment: {
+            name: "Strange",
+            avatar: "",
+            content:
+              "质量很好，穿着也很舒服。很时尚，很社会，抓紧行动吧，亲们！"
+          }
+        },
+        detail: {
+          size: ["60斤以内", "70-80斤"],
+          color: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
+        }
+      }
       // goodsSize: ["60斤以内", "70-80斤"],
       // goodsColor: ["漫画短袖+短裤（一套）", "漫画短袖+短裤+九分裤(三件套)"]
     };
@@ -189,6 +216,9 @@ export default {
     ...mapActions(["setCollection", "setPayment"]),
     ...mapGetters(["getCollection"]),
     async _initDetail() {
+      //loading
+      let loadingInstance = Loading.service({ fullscreen: true });
+
       const { goods_id } = this.$route.params;
       // axios => getGoodsInfomation
       // console.log(goods_id);
@@ -239,6 +269,11 @@ export default {
           if (Object.is(el, Math.floor(goods_id))) this.collection = true;
         });
       }
+
+      this.$nextTick(() => {
+        // 以服务的方式调用的 Loading 需要异步关闭
+        loadingInstance.close();
+      });
     },
     Single() {
       this.userSelector = -20.5;

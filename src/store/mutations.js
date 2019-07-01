@@ -21,6 +21,9 @@ export default {
         } else {
             state.collection.push(collect.pid);
         }
+
+        // localStorage.setItem('collection', JSON.stringify(collect));
+
     },
     addPayment(state, payment) {
         state.payment = payment;

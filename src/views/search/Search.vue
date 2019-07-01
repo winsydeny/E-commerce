@@ -4,7 +4,7 @@
     <div class="search-page" v-if="!isShow">
       <div class="input">
         <form>
-          <input type="text" placeholder="折叠屏">
+          <input type="text" placeholder="折叠屏" />
         </form>
         <span @click="cancel">取消</span>
       </div>
@@ -25,9 +25,6 @@
         <div class="title">热门搜索</div>
         <div class="search-list">
           <div class="pupple">电动车雨衣</div>
-          <div class="pupple">网红阔腿裤套装</div>
-          <div class="pupple">水龙头花洒</div>
-          <div class="pupple">男袜子</div>
         </div>
       </div>
     </div>
@@ -68,7 +65,7 @@
               <img
                 src="http://t13img.yangkeduo.com/cart/2019-05-20/2117ba388cc1f44ae8443d0c29a42b45.png?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"
                 alt
-              >
+              />
               <span>查看更多></span>
             </div>
             <div class="classify-categroy">
@@ -78,7 +75,7 @@
                   <img
                     src="http://t00img.yangkeduo.com/goods/images/2019-03-13/3a1ac479-1b87-417f-9f33-3abde48258fc.jpg?imageMogr2/sharpen/1%7CimageView2/2/w/1300/q/70/format/webp"
                     alt
-                  >
+                  />
                   <!-- </div> -->
                   <span>夏热卖</span>
                 </li>

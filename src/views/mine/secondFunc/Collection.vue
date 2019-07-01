@@ -2,64 +2,46 @@
   <div class="collection">
     <div class="sort">
       <ul>
+        <i class="iconfont back-route" @click="back">&#xe642;</i>
         <li :class="[selected === 0?'selected':'']" @click="choose(0)">按时间查看</li>
         <li :class="[selected === 1?'selected':'']" @click="choose(1)">按店铺查看</li>
       </ul>
     </div>
-    <div v-if="selected === 0" class="time">
+    <div v-if="selected === 0" class="time" v-loading="loading">
       <div v-if="noCollection" class="info">您还没有收藏过商品</div>
-      <!-- <div class="things" v-for="(item,index) in 8" :key="index">
+      <div class="things" v-for="(item,index) in collection" :key="index">
         <div class="things-left">
-          <img
-            src="http://t00img.yangkeduo.com/goods/images/2018-11-28/8a965dacf5947f778fe134fd5b160289.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/300/q/70/format/webp"
-            alt
-          >
+          <img :src="item.detail_goods.img" alt />
         </div>
         <div class="things-right">
-          <p>【999元抢2869件，抢完恢复1108元】加粗加厚实木子母床双层床两层上下床成人高低床儿童床成人母子床</p>
+          <p>{{item.detail_goods.title}}</p>
           <div class="things-info">
             <div class="prices">
               <span style="color:#e02e24;">￥</span>
-              <span style="color:#e02e24;">999</span>
+              <span style="color:#e02e24;">{{item.detail_goods.price.current}}</span>
             </div>
-            <div class="numbers">已拼2.5万件</div>
-            
+            <div class="numbers">已拼{{item.detail_goods.price.already}}万件</div>
           </div>
         </div>
-      </div>-->
+      </div>
     </div>
     <div v-if="selected === 1" class="shop">
       <div v-if="noCollection" class="info">您还没有收藏过商品</div>
-      <!-- <div class="things" v-for="(item,index) in 2" :key="index">
-        <div class="things-left">
-          <img
-            src="http://t00img.yangkeduo.com/goods/images/2018-11-28/8a965dacf5947f778fe134fd5b160289.jpeg?imageMogr2/sharpen/1%7CimageView2/2/w/300/q/70/format/webp"
-            alt
-          >
-        </div>
-        <div class="things-right">
-          <p>【999元抢2869件，抢完恢复1108元】加粗加厚实木子母床双层床两层上下床成人高低床儿童床成人母子床</p>
-          <div class="things-info">
-            <div class="prices">
-              <span style="color:#e02e24;">￥</span>
-              <span style="color:#e02e24;">999</span>
-            </div>
-            <div class="numbers">已拼2.5万件</div>
-            
-          </div>
-        </div>
-      </div>-->
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
+import { getGoodsPid } from "@/api/index.js";
+import { Loading } from "element-ui";
 export default {
   name: "collection",
   data() {
     return {
       selected: 0,
-      noCollection: false
+      noCollection: false,
+      collection: [],
+      loading: true
     };
   },
   methods: {
@@ -68,16 +50,34 @@ export default {
       this.selected = index;
     },
     getCollect() {
+      //loading
+      // let loadingInstance = Loading.service({ fullscreen: true });
+
       const collect = this.getCollection();
-      if (collect === null) {
+      console.log(collect);
+      // debugger;
+      if (collect.length === 0) {
         this.noCollection = true;
       } else {
         this.noCollection = false;
-        console.log(collect);
+        collect.forEach(async element => {
+          const { data } = await getGoodsPid(element);
+          this.collection.push(data[0]);
+        });
+        console.log(this.collection);
+        // close loading
+        console.log(this.loading);
       }
+      // close loading
+      this.loading = false;
+    },
+    back() {
+      this.$router.go(-1);
     }
   },
   created() {
+    // console.log(loadingInstance);
+
     this.getCollect();
   }
 };
@@ -94,6 +94,22 @@ $priceColor: #e02e24;
   top: 0;
   .sort {
     ul {
+      position: relative;
+      .back {
+        // height: 100%;
+        width: 2rem;
+        height: 100%;
+        display: block;
+        line-height: 3rem;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+        padding-left: 0.4rem;
+        &:active {
+          background: #dbdbdb5d;
+        }
+      }
       display: flex;
       justify-content: center;
       border-bottom: 0.8px solid rgba(128, 128, 128, 0.24);
@@ -158,7 +174,7 @@ $priceColor: #e02e24;
         div {
           &:nth-child(1) {
             // margin-left: 0.7rem;
-            width: 25%;
+            // width: 25%;
             text-indent: 0.6rem;
           }
         }

@@ -24,7 +24,7 @@
           src="http://omsproductionimg.yangkeduo.com/images/2018-05-09/bdcc0337772d22eb21ba70aaf46cf85e.png@80w_1l_80Q"
           alt
         />
-        <!-- 蒙福科技 -->
+
         <span>蒙福科技</span>
       </div>
       <div class="or-goods-info">
@@ -42,7 +42,6 @@
         </div>
       </div>
       <div class="or-goods-number">
-        <!-- <span>购买数量</span> -->
         <p>购买数量</p>
         <div class="calcu">
           <button @click="sub" :class="notSub?'notsub':''">-</button>
@@ -100,6 +99,15 @@ export default {
           color: "褐色 + 灰色",
           size: "3XL",
           price: "35"
+        }
+      },
+      address: {
+        name: "",
+        phone: "",
+        address: {
+          province: "",
+          city: "",
+          area: ""
         }
       }
     };
@@ -159,8 +167,10 @@ export default {
   },
   created() {
     this.address = this.$store.getters.getReceiver;
-    this.getOrder();
     console.log(this.address);
+    if (Object.is(this.address, null)) this.$router.push({ name: "consignee" });
+    else this.getOrder();
+    // console.log(this.address);
   }
 };
 </script>

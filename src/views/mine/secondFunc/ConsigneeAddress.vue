@@ -9,9 +9,11 @@
           <p>{{receiver.address.province.value}}.{{receiver.address.city.value}}.{{receiver.address.area.value}}</p>
         </div>
         <div class="address-choose">
-          <span class="defaults">已设为默认</span>
+          <span class="defaults">
+            <i class="iconfont" style="font-size:1rem;margin-right:.3rem;color:red">&#xe66f;</i>已设为默认
+          </span>
           <div>
-            <span>编辑</span>
+            <span @click="addAddress">编辑</span>
             <span>置顶</span>
           </div>
         </div>
@@ -37,8 +39,8 @@
     </div>
 
     <div class="reveicer" :style="`bottom:${receiverBottom}%`">
-      <input type="text" placeholder="收件人" v-model="receiver.name">
-      <input type="text" placeholder="电话" v-model="receiver.phone">
+      <input type="text" placeholder="收件人" v-model="receiver.name" />
+      <input type="text" placeholder="电话" v-model="receiver.phone" />
       <button class="addAddress" @click="finalSubmit">完成</button>
     </div>
   </div>

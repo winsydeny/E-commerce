@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
     <!-- <login/> -->
-    <navbar :navbars="bars"/>
+    <navbar :navbars="bars" />
   </div>
 </template>
 
@@ -11,6 +11,7 @@ import store from "@/store/index.js";
 
 import { getGoodsPid, getGoodsList } from "@/api/index.js";
 import { mapActions } from "vuex";
+// import { Loading } from "element-ui";
 // import login from "@/views/login/Login";
 import navbar from "@/components/NavBar.vue";
 export default {
@@ -64,6 +65,7 @@ export default {
   methods: {
     ...mapActions(["setGoodslist"]),
     async _initData() {
+
       if (localStorage.getItem("username")) {
         this.$store.dispatch("setUserName", localStorage.getItem("username"));
       }
@@ -73,10 +75,12 @@ export default {
           JSON.parse(localStorage.getItem("address"))
         );
       }
-
-      // const { data } = await getGoodsList();
-      // this.setGoodslist(data); // vuex goodslist
-      // console.log(data);
+      if (localStorage.getItem("collection")) {
+        this.$store.dispatch(
+          "setCollection",
+          JSON.parse(localStorage.getItem("collection"))
+        );
+      }
     }
   },
   mounted() {
