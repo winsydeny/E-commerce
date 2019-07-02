@@ -4,6 +4,7 @@
     <div class="search-page" v-if="!isShow">
       <div class="input">
         <form>
+          <i class="iconfont">&#xe667;</i>
           <input type="text" placeholder="折叠屏" />
         </form>
         <span @click="cancel">取消</span>
@@ -121,7 +122,9 @@ export default {
         { title: "手机", path: "/home/phones" },
         { title: "食品", path: "/home/foods" },
         { title: "日用", path: "/home/days" }
-      ]
+      ],
+      searchInput: "",
+      backorgo: "" //back or go
     };
   },
   methods: {
@@ -213,7 +216,14 @@ export default {
       padding: 0.4rem 0.2rem;
       form {
         width: 85%;
-        // position: relative;
+        position: relative;
+        i {
+          position: absolute;
+          top: 50%;
+          transform: translate(5px, -50%);
+          font-size: 0.9rem;
+          color: rgb(163, 163, 163);
+        }
         input {
           width: 100%;
           margin: 0 auto;
@@ -227,12 +237,12 @@ export default {
           text-indent: 1.4rem;
         }
         &::before {
-          content: "@";
-          left: 1.2rem;
-          line-height: 2.4rem;
-          position: absolute;
-          display: inline-block;
-          color: rgb(115, 117, 119);
+          // content: "@";
+          // left: 1.2rem;
+          // line-height: 2.4rem;
+          // position: absolute;
+          // display: inline-block;
+          // color: rgb(115, 117, 119);
         }
       }
 

@@ -1,13 +1,14 @@
 <template>
   <div class="back" @click="toback">
     <div class="to-top">
-      <span>顶部</span>
+      <span>{{name}}</span>
     </div>
   </div>
 </template>
 <script>
 export default {
   name: "back",
+  props: ["name"],
   methods: {
     toback() {
       this.$parent.backToTop();

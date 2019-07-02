@@ -155,7 +155,10 @@
         </div>
       </div>
 
-      <back :style="'position:fixed;z-index:20;right:1rem;transition:0.7s;bottom:'+dist+'rem'"></back>
+      <back
+        :style="'position:fixed;z-index:20;right:1rem;transition:0.7s;bottom:'+dist+'rem'"
+        name="顶部"
+      ></back>
     </div>
     <!-- route -->
     <router-view></router-view>

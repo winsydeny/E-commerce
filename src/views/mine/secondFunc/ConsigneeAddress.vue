@@ -19,7 +19,7 @@
         </div>
       </div>
       <button class="addAddress" @click="addAddress">手动添加</button>
-      <button @click="$router.go(-1)">BACK</button>
+      <button @click="$router.replace({name:'mine'})">BACK</button>
     </div>
 
     <div class="areaSelector" :style="`bottom:${bottom}%`">

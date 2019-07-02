@@ -2,7 +2,7 @@
   <div class="collection">
     <div class="sort">
       <ul>
-        <i class="iconfont back-route" @click="back">&#xe642;</i>
+        <i class="iconfont back-route" @click="$router.replace({name:'mine'})">&#xe642;</i>
         <li :class="[selected === 0?'selected':'']" @click="choose(0)">按时间查看</li>
         <li :class="[selected === 1?'selected':'']" @click="choose(1)">按店铺查看</li>
       </ul>
@@ -72,7 +72,7 @@ export default {
       this.loading = false;
     },
     back() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
     }
   },
   created() {

@@ -3,7 +3,7 @@
     <div class="mask" v-if="isShow"></div>
     <div class="goods-content">
       <div class="goods-img">
-        <i class="iconfont back-route" @click="$router.go(-1);">&#xe642;</i>
+        <i class="iconfont back-route" @click="$router.replace({name:'recommend'});">&#xe642;</i>
         <img :src="goods_detail.img" alt />
       </div>
       <div class="goods-details">

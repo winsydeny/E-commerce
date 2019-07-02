@@ -16,15 +16,19 @@
         </div>
       </div>
     </div>
-
+    <back style="position:absolute;bottom:3rem;right:1rem;" name="返回"></back>
     <div class="info" v-if="!isShow">您还没有订单</div>
   </div>
 </template>
 <script>
 import { getOrders } from "@/api/index";
+import back from "@/components/Back.vue";
 
 export default {
   name: "myorder_list",
+  components: {
+    back
+  },
   data() {
     return {
       orders: [],
@@ -46,6 +50,9 @@ export default {
     async _initData() {
       const { data } = await getOrders(this.$store.getters.getUser);
       this.orders = data;
+    },
+    backToTop() {
+      this.$router.replace({ name: "mine" });
     }
   },
   mounted() {
