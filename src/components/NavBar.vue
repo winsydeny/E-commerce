@@ -13,7 +13,7 @@
             alt
             srcset
             class="bar-imgs"
-          >
+          />
           <!-- <img src="../assets/navbar/home.webp" alt srcset class="bar-imgs"> -->
         </div>
         <div :class="['btn-font',{'selected-font':$route.path.includes(item.path)}]">{{item.title}}</div>
@@ -24,8 +24,48 @@
 <script>
 export default {
   name: "navbar",
-  props: {
-    navbars: Array
+  data() {
+    return {
+      navbars: [
+        {
+          name: "home",
+          path: "/home",
+          title: "首页",
+          src: require("@/assets/navbar/home.webp"),
+          ssrc: require("@/assets/navbar/home_tabs.webp")
+        },
+        {
+          name: "recommend",
+          path: "/recommend",
+          title: "推荐",
+          src: require("@/assets/navbar/recommend.webp"),
+          ssrc: require("@/assets/navbar/recommend_tab.webp")
+        },
+        {
+          name: "search",
+          path: "/search",
+          title: "搜索",
+          src: require("@/assets/navbar/search.webp"),
+          ssrc: require("@/assets/navbar/search_tab.webp")
+        },
+
+        {
+          name: "chat",
+          path: "/chat",
+          title: "聊天",
+          src: require("@/assets/navbar/chat.webp"),
+          ssrc: require("@/assets/navbar/chat_tab.webp")
+        },
+
+        {
+          name: "mine",
+          path: "/mine",
+          title: "个人中心",
+          src: require("@/assets/navbar/mine.webp"),
+          ssrc: require("@/assets/navbar/mine_tab.webp")
+        }
+      ]
+    };
   },
   methods: {
     to(target_name, id) {

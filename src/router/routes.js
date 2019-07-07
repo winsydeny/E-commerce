@@ -1,7 +1,11 @@
+import NavBar from "@/components/NavBar";
 export default [{
     path: "/home",
     name: "home",
-    component: () => import("@/views/home/Home"),
+    components: {
+      default: () => import("@/views/home/Home"),
+      navbar: NavBar
+    },
     children: [{
         path: "/home/popular",
         name: "popular",
@@ -58,22 +62,35 @@ export default [{
   {
     path: "/recommend",
     name: "recommend",
-    component: () => import("@/views/recommend/Recommend")
+    components: {
+      default: () => import("@/views/recommend/Recommend"),
+      navbar: NavBar
+    },
   },
   {
     path: "/search",
     name: "search",
-    component: () => import("@/views/search/Search")
+    components: {
+      default: () => import("@/views/search/Search"),
+      navbar: NavBar
+    },
+
   },
   {
     path: "/chat",
     name: "chat",
-    component: () => import("@/views/chat/Chat")
+    components: {
+      default: () => import("@/views/chat/Chat"),
+      navbar: NavBar
+    },
   },
   {
     path: "/mine",
     name: "mine",
-    component: () => import("@/views/mine/Mine"),
+    components: {
+      default: () => import("@/views/mine/Mine"),
+      navbar: NavBar
+    },
     children: [{
         path: "/mine/setting",
         name: "setting",

@@ -2,7 +2,7 @@
   <div id="app">
     <router-view />
     <!-- <login/> -->
-    <navbar :navbars="bars" />
+    <router-view name="navbar"></router-view>
   </div>
 </template>
 
@@ -16,56 +16,9 @@ import { mapActions } from "vuex";
 import navbar from "@/components/NavBar.vue";
 export default {
   name: "app",
-  data() {
-    return {
-      bars: [
-        {
-          name: "home",
-          path: "/home",
-          title: "首页",
-          src: require("@/assets/navbar/home.webp"),
-          ssrc: require("@/assets/navbar/home_tabs.webp")
-        },
-        {
-          name: "recommend",
-          path: "/recommend",
-          title: "推荐",
-          src: require("@/assets/navbar/recommend.webp"),
-          ssrc: require("@/assets/navbar/recommend_tab.webp")
-        },
-        {
-          name: "search",
-          path: "/search",
-          title: "搜索",
-          src: require("@/assets/navbar/search.webp"),
-          ssrc: require("@/assets/navbar/search_tab.webp")
-        },
-
-        {
-          name: "chat",
-          path: "/chat",
-          title: "聊天",
-          src: require("@/assets/navbar/chat.webp"),
-          ssrc: require("@/assets/navbar/chat_tab.webp")
-        },
-
-        {
-          name: "mine",
-          path: "/mine",
-          title: "个人中心",
-          src: require("@/assets/navbar/mine.webp"),
-          ssrc: require("@/assets/navbar/mine_tab.webp")
-        }
-      ]
-    };
-  },
-  components: {
-    navbar
-  },
   methods: {
     ...mapActions(["setGoodslist"]),
     async _initData() {
-
       if (localStorage.getItem("username")) {
         this.$store.dispatch("setUserName", localStorage.getItem("username"));
       }

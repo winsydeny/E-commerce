@@ -1,5 +1,5 @@
 <template>
-  <div class="recommend">
+  <div class="recommend" v-loading="loading">
     <div class="goods-list">
       <div
         class="goods left"
@@ -26,30 +26,32 @@
 import { getGoodsPid, getGoodsList } from "@/api/index.js";
 // import { mapGetters } from "vuex";
 import { mapActions } from "vuex";
-import { Loading } from "element-ui";
+// import { Loading } from "element-ui";
 export default {
   name: "recommend",
   data() {
     return {
-      goodsList: []
+      goodsList: [],
+      loading: true
     };
   },
   methods: {
     ...mapActions(["setGoodslist"]),
     async _initData() {
-      let loadingInstance = Loading.service({ fullscreen: true });
+      // let loadingInstance = Loading.service({ fullscreen: true });
       const list = await getGoodsList();
       // format data show in recommend
       this.formatData(list.data);
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        loadingInstance.close();
-      });
+      this.loading = false;
+      // this.$nextTick(() => {
+      //   // 以服务的方式调用的 Loading 需要异步关闭
+      //   loadingInstance.close();
+      // });
     },
     formatData(data) {
       data.forEach(({ detail_goods, pid }) => {
         const { img, title, price } = detail_goods;
-        console.log(price);
+        // console.log(price);
         const list = {
           img: img,
           title: title,
