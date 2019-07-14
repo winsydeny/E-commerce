@@ -29,3 +29,12 @@
 - goodsDetail[page] 服务说明
 - 收藏功能
 - 客服
+
+## Nginx 配置
+
+- nginx 启动
+  - 目录：/usr/local/nginx/sbin
+  - 启动方式 ./nginx
+- nginx 暂停
+  - 找到进程(pid) ps -ef|grep nginx
+  - 杀死进程 kill -QUIT [pid]
